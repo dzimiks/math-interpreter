@@ -42,7 +42,7 @@ class TokenType(Enum):
     # ,
     COMMA = 13
     # (
-    OPEN_PAREN = 14
+    OPENED_PAREN = 14
     # )
     CLOSED_PAREN = 15
     # Exit

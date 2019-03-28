@@ -1,4 +1,5 @@
 from interpreter import Interpreter
+from lexer import Lexer
 
 
 def main():
@@ -14,7 +15,8 @@ def main():
         if text == 'EXIT':
             break
 
-        interpreter = Interpreter(text)
+        lexer = Lexer(text)
+        interpreter = Interpreter(lexer)
 
         if interpreter is None:
             print('End of program!')
