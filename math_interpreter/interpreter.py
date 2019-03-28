@@ -1,4 +1,4 @@
-from token import Token, TokenType
+from math_interpreter.token import TokenType
 
 
 # class Interpreter:

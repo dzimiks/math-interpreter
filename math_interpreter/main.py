@@ -1,5 +1,5 @@
-from interpreter import Interpreter
-from lexer import Lexer
+from math_interpreter.interpreter import Interpreter
+from math_interpreter.lexer import Lexer
 
 
 def main():

@@ -1,4 +1,4 @@
-from token import Token, TokenType
+from math_interpreter.token import Token, TokenType
 
 
 # class LexerException(Exception):
