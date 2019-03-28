@@ -10,7 +10,7 @@ class Token():
         out = str(self.type.name)
 
         if self.value is not None:
-            out += "({0})".format(str(self.value))
+            out += '({0})'.format(str(self.value))
 
         return out
 
@@ -22,55 +22,56 @@ class TokenType(Enum):
     # =
     ASSIGN = 3
     # +
-    OP_ADD = 4
+    ADD = 4
     # -
-    OP_SUB = 5
+    SUB = 5
     # *
-    OP_MUL = 6
+    MUL = 6
     # /
-    OP_DIV = 7
+    DIV = 7
     # >
-    OP_GT = 8
+    GT = 8
     # >=
-    OP_GTE = 9
+    GTE = 9
     # <
-    OP_LT = 10
+    LT = 10
     # <=
-    OP_LTE = 11
+    LTE = 11
     # ==
-    OP_EQ = 12
+    EQ = 12
     # ,
     COMMA = 13
     # (
-    PAREN_LEFT = 14
+    OPEN_PAREN = 14
     # )
-    PAREN_RIGHT = 15
+    CLOSED_PAREN = 15
     # Exit
     EXIT = 16
     # End of token stream
     EOF = 17
+    BINOP = 18
 
 
 class TokenGroups:
     numbers = [
-        TokenType.INT,
-        TokenType.ID
+        TokenType.ID,
+        TokenType.INT
     ]
 
-    bin_ops_1 = [
-        TokenType.OP_ADD,
-        TokenType.OP_SUB
+    bin_commands_1 = [
+        TokenType.ADD,
+        TokenType.SUB
     ]
 
-    bin_ops_2 = [
-        TokenType.OP_MUL,
-        TokenType.OP_DIV
+    bin_commands_2 = [
+        TokenType.MUL,
+        TokenType.DIV
     ]
 
-    boolean_ops = [
-        TokenType.OP_GT,
-        TokenType.OP_LT,
-        TokenType.OP_GTE,
-        TokenType.OP_LTE,
-        TokenType.OP_EQ
+    boolean_commands = [
+        TokenType.GT,
+        TokenType.LT,
+        TokenType.GTE,
+        TokenType.LTE,
+        TokenType.EQ
     ]

@@ -17,7 +17,7 @@ class Interpreter():
             self.error()
 
     def get_next_token(self):
-        token = ""
+        token = ''
 
         while self.pos < len(self.text) and self.text[self.pos].isspace():
             self.pos += 1
@@ -34,9 +34,17 @@ class Interpreter():
                 self.pos += 1
 
             self.pos -= 1
-            token = Token(TokenType.INTEGER, int(number))
+            token = Token(TokenType.INT, int(number))
         elif current_char == '+' or current_char == '-' or current_char == '*' or current_char == '/':
             token = Token(TokenType.BINOP, current_char)
+        # elif current_char == '+':
+        #     token = Token(TokenType.ADD, current_char)
+        # elif current_char == '-':
+        #     token = Token(TokenType.SUB, current_char)
+        # elif current_char == '*':
+        #     token = Token(TokenType.MUL, current_char)
+        # elif current_char == '/':
+        #     token = Token(TokenType.DIV, current_char)
         else:
             self.error()
 
@@ -47,14 +55,14 @@ class Interpreter():
         self.current_token = self.get_next_token()
 
         left = self.current_token
-        self.eat(TokenType.INTEGER)
+        self.eat(TokenType.INT)
 
         while self.current_token.value is not None:
             op = self.current_token
             self.eat(TokenType.BINOP)
 
             right = self.current_token
-            self.eat(TokenType.INTEGER)
+            self.eat(TokenType.INT)
 
             if op.value == '+':
                 left.value += right.value
