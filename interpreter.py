@@ -1,5 +1,4 @@
-from token import Token
-from token_type import TokenType
+from token import Token, TokenType
 
 
 class Interpreter():
@@ -36,7 +35,7 @@ class Interpreter():
 
             self.pos -= 1
             token = Token(TokenType.INTEGER, int(number))
-        elif current_char == '+' or current_char == '-':
+        elif current_char == '+' or current_char == '-' or current_char == '*' or current_char == '/':
             token = Token(TokenType.BINOP, current_char)
         else:
             self.error()
@@ -61,5 +60,9 @@ class Interpreter():
                 left.value += right.value
             elif op.value == '-':
                 left.value -= right.value
+            elif op.value == '*':
+                left.value *= right.value
+            elif op.value == '/':
+                left.value /= right.value
 
         return left.value
