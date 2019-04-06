@@ -8,7 +8,7 @@ class Lexer:
         self.current_char = self.text[self.pos]
 
     def error(self):
-        raise Exception('Unexpected char {} '.format(self.current_char))
+        raise Exception('Unexpected char {}!'.format(self.current_char))
 
     def advance(self):
         self.pos += 1
