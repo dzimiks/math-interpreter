@@ -1,77 +1,47 @@
 from enum import Enum
 
 
-class Token():
+class Token:
     def __init__(self, token_type, value=None):
         self.type = token_type
         self.value = value
 
     def __str__(self):
-        out = str(self.type.name)
-
-        if self.value is not None:
-            out += '({0})'.format(str(self.value))
-
-        return out
+        return '<{} {}>'.format(self.type, self.value)
 
 
 class TokenType(Enum):
-    ID = 1
     # Integer
-    INT = 2
+    INT = 'INT'
+    # String
+    STRING = 'STRING'
     # =
-    ASSIGN = 3
+    ASSIGN = 'ASSIGN'
     # +
-    ADD = 4
+    ADD = 'ADD'
     # -
-    SUB = 5
+    SUB = 'SUB'
     # *
-    MUL = 6
+    MUL = 'MUL'
     # /
-    DIV = 7
+    DIV = 'DIV'
     # >
-    GT = 8
+    GT = 'GT'
     # >=
-    GTE = 9
+    GTE = 'GTE'
     # <
-    LT = 10
+    LT = 'LT'
     # <=
-    LTE = 11
+    LTE = 'LTE'
     # ==
-    EQ = 12
-    # ,
-    COMMA = 13
+    EQ = 'EQ'
+    # !=
+    NE = 'NE'
     # (
-    OPENED_PAREN = 14
+    OPENED_PAREN = 'OPENED_PAREN'
     # )
-    CLOSED_PAREN = 15
-    # Exit
-    EXIT = 16
-    # End of token stream
-    EOF = 17
-    BINOP = 18
-
-
-class TokenGroups:
-    numbers = [
-        TokenType.ID,
-        TokenType.INT
-    ]
-
-    bin_commands_1 = [
-        TokenType.ADD,
-        TokenType.SUB
-    ]
-
-    bin_commands_2 = [
-        TokenType.MUL,
-        TokenType.DIV
-    ]
-
-    boolean_commands = [
-        TokenType.GT,
-        TokenType.LT,
-        TokenType.GTE,
-        TokenType.LTE,
-        TokenType.EQ
-    ]
+    CLOSED_PAREN = 'CLOSED_PAREN'
+    # EXIT
+    EXIT = 'EXIT'
+    # EOF
+    EOF = 'EOF'

@@ -12,17 +12,12 @@ def main():
         if not text:
             continue
 
-        if text == 'EXIT':
+        if text == 'exit':
             break
 
         lexer = Lexer(text)
         interpreter = Interpreter(lexer)
-
-        if interpreter is None:
-            print('End of program!')
-            break
-
-        result = interpreter.expr()
+        result = interpreter.bool()
         print(result)
 
 
