@@ -1,171 +1,4 @@
-from math_interpreter.interpreter import Interpreter
-from math_interpreter.lexer import Lexer
-from math_interpreter.calculator import Prefixator, Postfixator
-
-OPERATIONS = ('+', '-', '/', '*', '=', '<', '>', '!')
-
-
-def parse_string(text):
-    if text is not None and (text.isalpha() or text.isdigit() or text in ('_', '(', ')')):
-        return True
-
-    return False
-
-
-def prefix_calculation(text, var_storage):
-    expression_to_list = []
-    number = ''
-    length = len(text)
-    index = 0
-
-    while index < length:
-        c = text[index]
-
-        if c == ' ':
-            if number != '':
-                expression_to_list.append(number)
-                number = ''
-
-            index += 1
-            continue
-
-        if c in OPERATIONS:
-            if number != '':
-                expression_to_list.append(number)
-                number = ''
-
-            if c == '<':
-                if text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('<=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '>':
-                if text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('>=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '!':
-                if text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('!=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '=':
-                if text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('==')
-                else:
-                    expression_to_list.append(c)
-            else:
-                expression_to_list.append(c)
-        elif c.isdigit():
-            number += c
-        else:
-            var = ''
-
-            while index + 1 < length and parse_string(text[index + 1]):
-                var += text[index]
-                index += 1
-
-            var += text[index]
-            expression_to_list.append(var)
-
-        index += 1
-
-    expression_to_list.append(number)
-    c = Prefixator()
-    answer = c.convert(expression_to_list)
-    ret = '?'
-    ret = infix_calculation(answer, var_storage)
-
-    print('Prefix exp:', expression_to_list)
-    print(answer, '=', ret)
-    # return answer
-    return ret
-
-
-def infix_calculation(text, var_storage):
-    lexer = Lexer(text)
-    interpreter = Interpreter(lexer, var_storage)
-    print(var_storage)
-    result = interpreter.bool()
-    return str(result)
-
-
-def postfix_calculation(text, var_storage):
-    expression_to_list = []
-    number = ''
-    length = len(text)
-    index = 0
-
-    while index < length:
-        c = text[index]
-
-        if c == ' ':
-            if number != '':
-                expression_to_list.append(number)
-                number = ''
-
-            index += 1
-            continue
-
-        if c in OPERATIONS:
-            if number != '':
-                expression_to_list.append(number)
-                number = ''
-
-            if c == '<':
-                if index + 1 < length and text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('<=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '>':
-                if index + 1 < length and text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('>=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '!':
-                if index + 1 < length and text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('!=')
-                else:
-                    expression_to_list.append(c)
-            elif c == '=':
-                if index + 1 < length and text[index + 1] == '=':
-                    index += 1
-                    expression_to_list.append('==')
-                else:
-                    expression_to_list.append(c)
-            else:
-                expression_to_list.append(c)
-        elif c.isdigit():
-            number += c
-        else:
-            var = ''
-
-            while index + 1 < length and parse_string(text[index + 1]):
-                var += text[index]
-                index += 1
-
-            var += text[index]
-            print('VAR:', var)
-            expression_to_list.append(var)
-
-        index += 1
-
-    c = Postfixator()
-    answer = c.convert(expression_to_list)
-    ret = '?'
-    ret = infix_calculation(answer, var_storage)
-
-    print('Postfix exp:', expression_to_list)
-    print(answer, '=', ret)
-    # return answer
-    return ret
+from math_interpreter.calculator import prefix_calculation, infix_calculation, postfix_calculation
 
 
 def prefix_mode(var_storage):
@@ -195,12 +28,14 @@ def infix_mode(var_storage):
     while True:
         try:
             text = input('INFIX -> ')
+            print(text)
 
             if text == 'POSTFIX':
                 postfix_mode(var_storage)
             elif text == 'PREFIX':
                 prefix_mode(var_storage)
             elif text == 'EXIT':
+                print('AAA')
                 break
 
             print(infix_calculation(text, var_storage))
@@ -211,6 +46,7 @@ def infix_mode(var_storage):
             continue
 
         if text == 'EXIT':
+            print('YYY')
             break
 
 

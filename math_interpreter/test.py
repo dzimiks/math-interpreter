@@ -1,5 +1,5 @@
 import unittest
-from math_interpreter.mode import prefix_calculation, infix_calculation, postfix_calculation
+from math_interpreter.calculator import prefix_calculation, infix_calculation, postfix_calculation
 from math_interpreter.var_storage import VarStorage
 
 

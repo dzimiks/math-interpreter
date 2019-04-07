@@ -1,5 +1,6 @@
 from math_interpreter.token import TokenType
 from math_interpreter.roman import Roman
+from math_interpreter.exceptions import UnexpectedTokenException, TokenTypeMismatchException
 
 
 class Interpreter:
@@ -10,13 +11,13 @@ class Interpreter:
         self.variables = dict()
 
     def error(self):
-        raise Exception('Error in parser!')
+        raise UnexpectedTokenException(self.current_token)
 
     def eat(self, type):
         if self.current_token.type == type:
             self.current_token = self.lexer.get_next_token()
         else:
-            self.error()
+            raise TokenTypeMismatchException(type, self.current_token)
 
     def factor(self):
         token = self.current_token
