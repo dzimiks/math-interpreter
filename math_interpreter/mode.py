@@ -5,6 +5,13 @@ from math_interpreter.calculator import Prefixator, Postfixator
 OPERATIONS = ('+', '-', '/', '*', '=', '<', '>', '!')
 
 
+def parse_string(text):
+    if text is not None and (text.isalpha() or text.isdigit() or text in ('_', '(', ')')):
+        return True
+
+    return False
+
+
 def prefix_calculation(text, var_storage):
     expression_to_list = []
     number = ''
@@ -53,8 +60,17 @@ def prefix_calculation(text, var_storage):
                     expression_to_list.append(c)
             else:
                 expression_to_list.append(c)
-        else:
+        elif c.isdigit():
             number += c
+        else:
+            var = ''
+
+            while index + 1 < length and parse_string(text[index + 1]):
+                var += text[index]
+                index += 1
+
+            var += text[index]
+            expression_to_list.append(var)
 
         index += 1
 
@@ -64,8 +80,8 @@ def prefix_calculation(text, var_storage):
     ret = '?'
     ret = infix_calculation(answer, var_storage)
 
-    # print('Prefix exp:', expression_to_list)
-    # print(answer, '=', ret)
+    print('Prefix exp:', expression_to_list)
+    print(answer, '=', ret)
     # return answer
     return ret
 
@@ -73,6 +89,7 @@ def prefix_calculation(text, var_storage):
 def infix_calculation(text, var_storage):
     lexer = Lexer(text)
     interpreter = Interpreter(lexer, var_storage)
+    print(var_storage)
     result = interpreter.bool()
     return str(result)
 
@@ -125,8 +142,18 @@ def postfix_calculation(text, var_storage):
                     expression_to_list.append(c)
             else:
                 expression_to_list.append(c)
-        else:
+        elif c.isdigit():
             number += c
+        else:
+            var = ''
+
+            while index + 1 < length and parse_string(text[index + 1]):
+                var += text[index]
+                index += 1
+
+            var += text[index]
+            print('VAR:', var)
+            expression_to_list.append(var)
 
         index += 1
 
@@ -135,8 +162,8 @@ def postfix_calculation(text, var_storage):
     ret = '?'
     ret = infix_calculation(answer, var_storage)
 
-    # print('Postfix exp:', expression_to_list)
-    # print(answer, '=', ret)
+    print('Postfix exp:', expression_to_list)
+    print(answer, '=', ret)
     # return answer
     return ret
 

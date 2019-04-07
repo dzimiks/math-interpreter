@@ -34,6 +34,12 @@ class Test(unittest.TestCase):
         prefix_9 = prefix_calculation('> <= 334 RIM(MD) 4', var_storage)
         answer_9 = 'True'
 
+        prefix_10 = prefix_calculation('- = RIM RIM(XXX) 9', var_storage)
+        answer_10 = '21'
+
+        prefix_11 = prefix_calculation('RIM', var_storage)
+        answer_11 = '30'
+
         self.assertEqual(prefix_1, answer_1)
         self.assertEqual(prefix_2, answer_2)
         self.assertEqual(prefix_3, answer_3)
@@ -43,6 +49,8 @@ class Test(unittest.TestCase):
         self.assertEqual(prefix_7, answer_7)
         self.assertEqual(prefix_8, answer_8)
         self.assertEqual(prefix_9, answer_9)
+        self.assertEqual(prefix_10, answer_10)
+        self.assertEqual(prefix_11, answer_11)
 
     def test_infix(self):
         var_storage = VarStorage()
@@ -90,6 +98,12 @@ class Test(unittest.TestCase):
         postfix_9 = postfix_calculation('1 y 2 = +', var_storage)
         answer_9 = '3'
 
+        postfix_10 = postfix_calculation('70 hana 10 = /', var_storage)
+        answer_10 = '7'
+
+        postfix_11 = postfix_calculation('hana', var_storage)
+        answer_11 = '10'
+
         self.assertEqual(postfix_1, answer_1)
         self.assertEqual(postfix_2, answer_2)
         self.assertEqual(postfix_3, answer_3)
@@ -99,6 +113,8 @@ class Test(unittest.TestCase):
         self.assertEqual(postfix_7, answer_7)
         self.assertEqual(postfix_8, answer_8)
         self.assertEqual(postfix_9, answer_9)
+        self.assertEqual(postfix_10, answer_10)
+        self.assertEqual(postfix_11, answer_11)
 
 
 if __name__ == '__main__':
