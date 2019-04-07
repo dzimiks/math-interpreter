@@ -1,6 +1,6 @@
 from math_interpreter.interpreter import Interpreter
 from math_interpreter.lexer import Lexer
-from math_interpreter.calculator import Calculator
+from math_interpreter.calculator import Prefixator, Postfixator
 
 OPERATIONS = ('+', '-', '/', '*', '=')
 
@@ -14,20 +14,29 @@ def prefix_calculation(text):
             if number != '':
                 expression_to_list.append(number)
                 number = ''
+
             continue
 
         if c in OPERATIONS:
+            if number != '':
+                expression_to_list.append(number)
+                number = ''
+
             expression_to_list.append(c)
         else:
             number += c
             continue
 
     expression_to_list.append(number)
-    c = Calculator()
+    c = Prefixator()
+    answer = c.convert(expression_to_list)
+    ret = '?'
+    # ret = infix_calculation(answer)
 
-    print(expression_to_list)
-    return c.convert(expression_to_list)
-    # return infix_calculation(c.convert(expression_to_list))
+    print('Prefix exp:', expression_to_list)
+    print(answer, '=', ret)
+    return answer
+    # return ret
 
 
 def infix_calculation(text):
@@ -38,7 +47,36 @@ def infix_calculation(text):
 
 
 def postfix_calculation(text):
-    return text
+    expression_to_list = []
+    number = ''
+
+    for c in text:
+        if c == ' ':
+            if number != '':
+                expression_to_list.append(number)
+                number = ''
+
+            continue
+
+        if c in OPERATIONS:
+            if number != '':
+                expression_to_list.append(number)
+                number = ''
+
+            expression_to_list.append(c)
+        else:
+            number += c
+            continue
+
+    c = Postfixator()
+    answer = c.convert(expression_to_list)
+    ret = '?'
+    # ret = infix_calculation(answer)
+
+    print('Postfix exp:', expression_to_list)
+    print(answer, '=', ret)
+    return answer
+    # return ret
 
 
 def prefix_mode():

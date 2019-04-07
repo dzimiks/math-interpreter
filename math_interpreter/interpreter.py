@@ -1,4 +1,5 @@
 from math_interpreter.token import TokenType
+from math_interpreter.roman import Roman
 
 
 class Interpreter:
@@ -17,8 +18,11 @@ class Interpreter:
 
     def factor(self):
         token = self.current_token
+        # print('FACTOR TOKEN:', token.type)
 
-        if token.type == TokenType.INT:
+        if token.type == TokenType.ROMAN:
+            return self.rumun()
+        elif token.type == TokenType.INT:
             self.eat(TokenType.INT)
             return token.value
         elif token.type == TokenType.OPENED_PAREN:
@@ -34,8 +38,23 @@ class Interpreter:
             self.eat(TokenType.STRING)
             return token.value
 
+    def rumun(self):
+        token = self.current_token
+        result = 0
+
+        if token.type == TokenType.ROMAN:
+            self.eat(TokenType.ROMAN)
+            roman = Roman()
+            result = roman.roman(self.string_factor())
+            self.eat(TokenType.CLOSED_PAREN)
+            return result
+
+        return result
+
     def term(self):
         result = self.factor()
+        # print('TERM RESULT:', result)
+        # print('TYPE:', self.current_token.type)
 
         while self.current_token.type in (TokenType.MUL, TokenType.DIV):
             token = self.current_token
@@ -52,10 +71,12 @@ class Interpreter:
         return result
 
     def expr(self):
+        # print('curr type:', self.current_token.type)
         result = self.term()
 
         while self.current_token.type in (TokenType.ADD, TokenType.SUB):
             token = self.current_token
+
             if token.type == TokenType.ADD:
                 self.eat(TokenType.ADD)
                 result = result + self.term()

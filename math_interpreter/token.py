@@ -41,6 +41,8 @@ class TokenType(Enum):
     OPENED_PAREN = 'OPENED_PAREN'
     # )
     CLOSED_PAREN = 'CLOSED_PAREN'
+    # Roman
+    ROMAN = 'ROMAN'
     # EXIT
     EXIT = 'EXIT'
     # EOF
