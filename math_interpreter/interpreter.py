@@ -88,11 +88,11 @@ class Interpreter:
                 result = result * self.factor()
             elif token.type == TokenType.DIV:
                 self.eat(TokenType.DIV)
-                result = result // self.factor()
+                result = result / self.factor()
             else:
                 self.error()
 
-        return result
+        return int(result)
 
     def expr(self):
         # print('CURR TYPE:', self.current_token.type)
