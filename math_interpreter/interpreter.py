@@ -28,6 +28,17 @@ class Interpreter:
         elif token.type == TokenType.OPENED_PAREN:
             self.eat(TokenType.OPENED_PAREN)
             result = self.expr()
+
+            if self.current_token.type == TokenType.GT:
+                self.eat(TokenType.GT)
+                result2 = self.expr()
+                result = result > result2
+
+            if self.current_token.type == TokenType.LT:
+                self.eat(TokenType.LT)
+                result2 = self.expr()
+                result = result < result2
+
             self.eat(TokenType.CLOSED_PAREN)
             return result
 

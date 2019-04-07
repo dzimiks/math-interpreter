@@ -22,12 +22,20 @@ class Test(unittest.TestCase):
         prefix_6 = prefix_calculation('* + - / RIM(MDCCLXXVI) 3 11 2 16')
         answer_6 = '9328'
 
+        prefix_7 = prefix_calculation('> 55 4')
+        answer_7 = 'True'
+
+        prefix_8 = prefix_calculation('> 1 RIM(IX)')
+        answer_8 = 'False'
+
         self.assertEqual(prefix_1, answer_1)
         self.assertEqual(prefix_2, answer_2)
         self.assertEqual(prefix_3, answer_3)
         self.assertEqual(prefix_4, answer_4)
         self.assertEqual(prefix_5, answer_5)
         self.assertEqual(prefix_6, answer_6)
+        self.assertEqual(prefix_7, answer_7)
+        self.assertEqual(prefix_8, answer_8)
 
     def test_postfix(self):
         postfix_1 = postfix_calculation('10 20 * 30 +')
@@ -51,6 +59,9 @@ class Test(unittest.TestCase):
         postfix_7 = postfix_calculation('RIM(MCDXV) 66 +')
         answer_7 = '1481'
 
+        postfix_8 = postfix_calculation('4 5 >')
+        answer_8 = 'False'
+
         self.assertEqual(postfix_1, answer_1)
         self.assertEqual(postfix_2, answer_2)
         self.assertEqual(postfix_3, answer_3)
@@ -58,6 +69,7 @@ class Test(unittest.TestCase):
         self.assertEqual(postfix_5, answer_5)
         self.assertEqual(postfix_6, answer_6)
         self.assertEqual(postfix_7, answer_7)
+        self.assertEqual(postfix_8, answer_8)
 
 
 if __name__ == '__main__':

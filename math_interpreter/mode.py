@@ -2,7 +2,7 @@ from math_interpreter.interpreter import Interpreter
 from math_interpreter.lexer import Lexer
 from math_interpreter.calculator import Prefixator, Postfixator
 
-OPERATIONS = ('+', '-', '/', '*', '=')
+OPERATIONS = ('+', '-', '/', '*', '=', '<', '>')
 
 
 def prefix_calculation(text):

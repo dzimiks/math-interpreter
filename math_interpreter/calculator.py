@@ -1,3 +1,6 @@
+OPERATIONS = ('+', '-', '/', '*', '=', '<', '>')
+
+
 class Prefixator:
     result = ''
 
@@ -5,7 +8,7 @@ class Prefixator:
         self.stack = []
 
     def push(self, p):
-        if p in ['+', '-', '*', '/', '=']:
+        if p in OPERATIONS:
             op1 = self.stack.pop()
             op2 = self.stack.pop()
             self.stack.append('(%s %s %s)' % (op1, p, op2))
@@ -29,7 +32,7 @@ class Postfixator:
         self.stack = []
 
     def push(self, p):
-        if p in ['+', '-', '*', '/', '=']:
+        if p in OPERATIONS:
             op1 = self.stack.pop()
             op2 = self.stack.pop()
             self.stack.append('(%s %s %s)' % (op2, p, op1))
