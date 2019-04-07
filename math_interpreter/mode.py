@@ -31,12 +31,12 @@ def prefix_calculation(text):
     c = Prefixator()
     answer = c.convert(expression_to_list)
     ret = '?'
-    # ret = infix_calculation(answer)
+    ret = infix_calculation(answer)
 
     print('Prefix exp:', expression_to_list)
     print(answer, '=', ret)
-    return answer
-    # return ret
+    # return answer
+    return ret
 
 
 def infix_calculation(text):
@@ -71,12 +71,12 @@ def postfix_calculation(text):
     c = Postfixator()
     answer = c.convert(expression_to_list)
     ret = '?'
-    # ret = infix_calculation(answer)
+    ret = infix_calculation(answer)
 
     print('Postfix exp:', expression_to_list)
     print(answer, '=', ret)
-    return answer
-    # return ret
+    # return answer
+    return ret
 
 
 def prefix_mode():
