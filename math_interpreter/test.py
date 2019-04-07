@@ -46,6 +46,12 @@ class Test(unittest.TestCase):
         prefix_13 = prefix_calculation('> ==hanica_123 4 3', var_storage)
         answer_13 = 'True'
 
+        prefix_14 = prefix_calculation('+*1 2 3', var_storage)
+        answer_14 = '5'
+
+        prefix_15 = prefix_calculation('<=+10 20 29', var_storage)
+        answer_15 = 'False'
+
         self.assertEqual(prefix_1, answer_1)
         self.assertEqual(prefix_2, answer_2)
         self.assertEqual(prefix_3, answer_3)
@@ -59,6 +65,8 @@ class Test(unittest.TestCase):
         self.assertEqual(prefix_11, answer_11)
         self.assertEqual(prefix_12, answer_12)
         self.assertEqual(prefix_13, answer_13)
+        self.assertEqual(prefix_14, answer_14)
+        self.assertEqual(prefix_15, answer_15)
 
     def test_infix(self):
         var_storage = VarStorage()
@@ -78,11 +86,15 @@ class Test(unittest.TestCase):
         infix_5 = infix_calculation('4 * ( y = 5 + 8 * 6 ) / 7', var_storage)
         answer_5 = '30'
 
+        infix_6 = infix_calculation('hana', var_storage)
+        answer_6 = '1010'
+
         self.assertEqual(infix_1, answer_1)
         self.assertEqual(infix_2, answer_2)
         self.assertEqual(infix_3, answer_3)
         self.assertEqual(infix_4, answer_4)
         self.assertEqual(infix_5, answer_5)
+        self.assertEqual(infix_6, answer_6)
 
     def test_postfix(self):
         var_storage = VarStorage()
