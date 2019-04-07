@@ -31,6 +31,9 @@ class Test(unittest.TestCase):
         prefix_8 = prefix_calculation('>1 RIM(IX)', var_storage)
         answer_8 = 'False'
 
+        prefix_9 = prefix_calculation('> <= 334 RIM(MD) 4', var_storage)
+        answer_9 = 'True'
+
         self.assertEqual(prefix_1, answer_1)
         self.assertEqual(prefix_2, answer_2)
         self.assertEqual(prefix_3, answer_3)
@@ -39,6 +42,7 @@ class Test(unittest.TestCase):
         self.assertEqual(prefix_6, answer_6)
         self.assertEqual(prefix_7, answer_7)
         self.assertEqual(prefix_8, answer_8)
+        self.assertEqual(prefix_9, answer_9)
 
     def test_infix(self):
         var_storage = VarStorage()
@@ -50,7 +54,7 @@ class Test(unittest.TestCase):
         answer_2 = '25'
 
         infix_3 = infix_calculation('2 + (y = 3) + 1', var_storage)
-        answer_3 = '3'
+        answer_3 = '6'
 
         self.assertEqual(infix_1, answer_1)
         self.assertEqual(infix_2, answer_2)

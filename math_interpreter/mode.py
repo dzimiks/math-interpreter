@@ -64,8 +64,8 @@ def prefix_calculation(text, var_storage):
     ret = '?'
     ret = infix_calculation(answer, var_storage)
 
-    print('Prefix exp:', expression_to_list)
-    print(answer, '=', ret)
+    # print('Prefix exp:', expression_to_list)
+    # print(answer, '=', ret)
     # return answer
     return ret
 
@@ -135,8 +135,8 @@ def postfix_calculation(text, var_storage):
     ret = '?'
     ret = infix_calculation(answer, var_storage)
 
-    print('Postfix exp:', expression_to_list)
-    print(answer, '=', ret)
+    # print('Postfix exp:', expression_to_list)
+    # print(answer, '=', ret)
     # return answer
     return ret
 
