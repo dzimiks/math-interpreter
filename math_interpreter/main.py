@@ -6,11 +6,11 @@ def main():
         try:
             text = input('--> ')
 
-            if text == 'infix':
+            if text == 'INFIX':
                 infix_mode()
-            elif text == 'prefix':
+            elif text == 'PREFIX':
                 prefix_mode()
-            elif text == 'postfix':
+            elif text == 'POSTFIX':
                 postfix_mode()
         except EOFError:
             break
@@ -18,7 +18,7 @@ def main():
         if not text:
             continue
 
-        if text == 'exit':
+        if text == 'EXIT':
             break
 
 

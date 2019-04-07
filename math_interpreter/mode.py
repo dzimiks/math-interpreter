@@ -1,11 +1,12 @@
 from math_interpreter.interpreter import Interpreter
 from math_interpreter.lexer import Lexer
 from math_interpreter.calculator import Prefixator, Postfixator
+from math_interpreter.var_storage import VarStorage
 
 OPERATIONS = ('+', '-', '/', '*', '=', '<', '>')
 
 
-def prefix_calculation(text):
+def prefix_calculation(text, var_storage):
     expression_to_list = []
     number = ''
 
@@ -31,7 +32,7 @@ def prefix_calculation(text):
     c = Prefixator()
     answer = c.convert(expression_to_list)
     ret = '?'
-    ret = infix_calculation(answer)
+    ret = infix_calculation(answer, var_storage)
 
     print('Prefix exp:', expression_to_list)
     print(answer, '=', ret)
@@ -39,14 +40,14 @@ def prefix_calculation(text):
     return ret
 
 
-def infix_calculation(text):
+def infix_calculation(text, var_storage):
     lexer = Lexer(text)
-    interpreter = Interpreter(lexer)
+    interpreter = Interpreter(lexer, var_storage)
     result = interpreter.bool()
     return str(result)
 
 
-def postfix_calculation(text):
+def postfix_calculation(text, var_storage):
     expression_to_list = []
     number = ''
 
@@ -71,7 +72,7 @@ def postfix_calculation(text):
     c = Postfixator()
     answer = c.convert(expression_to_list)
     ret = '?'
-    ret = infix_calculation(answer)
+    ret = infix_calculation(answer, var_storage)
 
     print('Postfix exp:', expression_to_list)
     print(answer, '=', ret)
@@ -82,13 +83,13 @@ def postfix_calculation(text):
 def prefix_mode():
     while True:
         try:
-            text = input('prefix -> ')
+            text = input('PREFIX -> ')
 
-            if text == 'infix':
+            if text == 'INFIX':
                 infix_mode()
-            elif text == 'postfix':
+            elif text == 'POSTFIX':
                 postfix_mode()
-            elif text == 'exit':
+            elif text == 'EXIT':
                 break
 
             print(prefix_calculation(text))
@@ -98,43 +99,45 @@ def prefix_mode():
         if not text:
             continue
 
-        if text == 'exit':
+        if text == 'EXIT':
             break
 
 
 def infix_mode():
+    var_storage = VarStorage()
+
     while True:
         try:
-            text = input('infix -> ')
+            text = input('INFIX -> ')
 
-            if text == 'postfix':
+            if text == 'POSTFIX':
                 postfix_mode()
-            elif text == 'prefix':
+            elif text == 'PREFIX':
                 prefix_mode()
-            elif text == 'exit':
+            elif text == 'EXIT':
                 break
 
-            print(infix_calculation(text))
+            print(infix_calculation(text, var_storage))
         except EOFError:
             break
 
         if not text:
             continue
 
-        if text == 'exit':
+        if text == 'EXIT':
             break
 
 
 def postfix_mode():
     while True:
         try:
-            text = input('postfix -> ')
+            text = input('POSTFIX -> ')
 
-            if text == 'infix':
+            if text == 'INFIX':
                 infix_mode()
-            elif text == 'prefix':
+            elif text == 'PREFIX':
                 prefix_mode()
-            elif text == 'exit':
+            elif text == 'EXIT':
                 break
 
             print(postfix_calculation(text))
@@ -144,5 +147,5 @@ def postfix_mode():
         if not text:
             continue
 
-        if text == 'exit':
+        if text == 'EXIT':
             break

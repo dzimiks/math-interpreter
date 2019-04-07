@@ -78,24 +78,3 @@ class Roman:
         digits = self.big_production(I, V, X)
 
         return thousands + hundreds + tens + digits
-
-
-def main():
-    roman = Roman()
-    print(roman.roman('MMI'))
-    print(roman.roman('X'))
-    print(roman.roman('XIX'))
-    print(roman.roman('VI'))
-    print(roman.roman('IV'))
-    print(roman.roman('MCD'))
-    print(roman.roman('MCMLXXXIV'))
-    print(roman.roman('IX'))
-    print(roman.roman('MMM'))
-    print(roman.roman('DCCCLXXXVIII'))
-    print(roman.roman('MMMDCCCXXXIII'))
-    print(roman.roman('MMMDCCCXXVIII'))
-    print(roman.roman('MMMDCCCLXXXVIII'))
-
-
-if __name__ == '__main__':
-    main()

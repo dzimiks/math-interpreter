@@ -3,9 +3,11 @@ from math_interpreter.roman import Roman
 
 
 class Interpreter:
-    def __init__(self, lexer):
+    def __init__(self, lexer, var_storage):
         self.lexer = lexer
+        self.var_storage = var_storage
         self.current_token = self.lexer.get_next_token()
+        self.variables = dict()
 
     def error(self):
         raise Exception('Error in parser!')
@@ -18,11 +20,10 @@ class Interpreter:
 
     def factor(self):
         token = self.current_token
-        # print('FACTOR TOKEN:', token.type)
+        # print('FACTOR TOKEN TYPE:', token.type)
+        # print('FACTOR TOKEN VALUE:', token.value)
 
-        if token.type == TokenType.ROMAN:
-            return self.rumun()
-        elif token.type == TokenType.INT:
+        if token.type == TokenType.INT:
             self.eat(TokenType.INT)
             return token.value
         elif token.type == TokenType.OPENED_PAREN:
@@ -41,6 +42,31 @@ class Interpreter:
 
             self.eat(TokenType.CLOSED_PAREN)
             return result
+        elif token.type == TokenType.STRING:
+            self.eat(TokenType.STRING)
+
+            if token.value == 'RIM' and self.current_token.type == TokenType.OPENED_PAREN:
+                self.eat(TokenType.OPENED_PAREN)
+                rumun = self.current_token
+                self.eat(TokenType.STRING)
+                self.eat(TokenType.CLOSED_PAREN)
+
+                romaninho = Roman()
+                result = romaninho.roman(rumun.value)
+                return result
+            else:
+                variable = token.value
+
+                if self.current_token.type == TokenType.ASSIGN:
+                    self.eat(TokenType.ASSIGN)
+                    variable_value = self.expr()
+                    self.var_storage.set(variable, variable_value)
+                    return variable_value
+                else:
+                    if self.var_storage.get(variable) is None:
+                        self.var_storage.set(None)
+
+                    return self.var_storage.get(variable)
 
     def string_factor(self):
         token = self.current_token
@@ -48,19 +74,6 @@ class Interpreter:
         if token.type == TokenType.STRING:
             self.eat(TokenType.STRING)
             return token.value
-
-    def rumun(self):
-        token = self.current_token
-        result = 0
-
-        if token.type == TokenType.ROMAN:
-            self.eat(TokenType.ROMAN)
-            roman = Roman()
-            result = roman.roman(self.string_factor())
-            self.eat(TokenType.CLOSED_PAREN)
-            return result
-
-        return result
 
     def term(self):
         result = self.factor()
@@ -82,7 +95,7 @@ class Interpreter:
         return result
 
     def expr(self):
-        # print('curr type:', self.current_token.type)
+        # print('CURR TYPE:', self.current_token.type)
         result = self.term()
 
         while self.current_token.type in (TokenType.ADD, TokenType.SUB):

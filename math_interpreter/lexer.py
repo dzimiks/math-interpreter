@@ -30,11 +30,12 @@ class Lexer:
     def string(self):
         string = ''
 
-        while self.current_char is not None and self.current_char.isalpha():
+        while self.current_char is not None and (
+                self.current_char.isalpha() or self.current_char.isdigit() or self.current_char == '_'):
             string += self.current_char
             self.advance()
 
-        # print('Parsed str:', string)
+        print('Parsed str:', string)
         return string
 
     def skip_whitespace(self):
@@ -46,21 +47,24 @@ class Lexer:
             if self.current_char.isspace():
                 self.skip_whitespace()
 
+            # if self.current_char.isalpha():
+            #     string = self.string()
+            #     print('get_next_token alpha:', string)
+            #
+            #     if string == 'RIM':
+            #         # print('curr char:', self.current_char)
+            #
+            #         if self.current_char == '(':
+            #             string += self.current_char
+            #             self.advance()
+            #
+            #     if len(string) > 3 and string[:4] == 'RIM(':
+            #         return Token(TokenType.ROMAN, string)
+            #
+            #     return Token(TokenType.STRING, string)
+
             if self.current_char.isalpha():
-                string = self.string()
-                # print('get_next_token alpha:', string)
-
-                if string == 'RIM':
-                    # print('curr char:', self.current_char)
-
-                    if self.current_char == '(':
-                        string += self.current_char
-                        self.advance()
-
-                if len(string) > 3 and string[:4] == 'RIM(':
-                    return Token(TokenType.ROMAN, string)
-
-                return Token(TokenType.STRING, string)
+                return Token(TokenType.STRING, self.string())
 
             if self.current_char.isdigit():
                 return Token(TokenType.INT, self.integer())
@@ -89,6 +93,13 @@ class Lexer:
                 self.advance()
                 return Token(TokenType.CLOSED_PAREN, ')')
 
+            # if self.current_char == ':':
+            #     self.advance()
+            #
+            #     if self.current_char == '=':
+            #         self.advance()
+            #         return Token(TokenType.ASSIGN, ':=')
+
             if self.current_char == '<':
                 self.advance()
 
@@ -113,8 +124,8 @@ class Lexer:
                 if self.current_char == '=':
                     self.advance()
                     return Token(TokenType.EQ, '==')
-
-                self.error()
+                else:
+                    return Token(TokenType.ASSIGN, '=')
 
             if self.current_char == '!':
                 self.advance()
