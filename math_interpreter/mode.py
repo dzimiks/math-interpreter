@@ -1,21 +1,25 @@
 from math_interpreter.interpreter import Interpreter
 from math_interpreter.lexer import Lexer
 from math_interpreter.calculator import Prefixator, Postfixator
-from math_interpreter.var_storage import VarStorage
 
-OPERATIONS = ('+', '-', '/', '*', '=', '<', '>')
+OPERATIONS = ('+', '-', '/', '*', '=', '<', '>', '!')
 
 
 def prefix_calculation(text, var_storage):
     expression_to_list = []
     number = ''
+    length = len(text)
+    index = 0
 
-    for c in text:
+    while index < length:
+        c = text[index]
+
         if c == ' ':
             if number != '':
                 expression_to_list.append(number)
                 number = ''
 
+            index += 1
             continue
 
         if c in OPERATIONS:
@@ -23,10 +27,36 @@ def prefix_calculation(text, var_storage):
                 expression_to_list.append(number)
                 number = ''
 
-            expression_to_list.append(c)
+            if c == '<':
+                if text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('<=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '>':
+                if text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('>=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '!':
+                if text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('!=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '=':
+                if text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('==')
+                else:
+                    expression_to_list.append(c)
+            else:
+                expression_to_list.append(c)
         else:
             number += c
-            continue
+
+        index += 1
 
     expression_to_list.append(number)
     c = Prefixator()
@@ -50,13 +80,18 @@ def infix_calculation(text, var_storage):
 def postfix_calculation(text, var_storage):
     expression_to_list = []
     number = ''
+    length = len(text)
+    index = 0
 
-    for c in text:
+    while index < length:
+        c = text[index]
+
         if c == ' ':
             if number != '':
                 expression_to_list.append(number)
                 number = ''
 
+            index += 1
             continue
 
         if c in OPERATIONS:
@@ -64,10 +99,36 @@ def postfix_calculation(text, var_storage):
                 expression_to_list.append(number)
                 number = ''
 
-            expression_to_list.append(c)
+            if c == '<':
+                if index + 1 < length and text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('<=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '>':
+                if index + 1 < length and text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('>=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '!':
+                if index + 1 < length and text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('!=')
+                else:
+                    expression_to_list.append(c)
+            elif c == '=':
+                if index + 1 < length and text[index + 1] == '=':
+                    index += 1
+                    expression_to_list.append('==')
+                else:
+                    expression_to_list.append(c)
+            else:
+                expression_to_list.append(c)
         else:
             number += c
-            continue
+
+        index += 1
 
     c = Postfixator()
     answer = c.convert(expression_to_list)
@@ -80,19 +141,19 @@ def postfix_calculation(text, var_storage):
     return ret
 
 
-def prefix_mode():
+def prefix_mode(var_storage):
     while True:
         try:
             text = input('PREFIX -> ')
 
             if text == 'INFIX':
-                infix_mode()
+                infix_mode(var_storage)
             elif text == 'POSTFIX':
-                postfix_mode()
+                postfix_mode(var_storage)
             elif text == 'EXIT':
                 break
 
-            print(prefix_calculation(text))
+            print(prefix_calculation(text, var_storage))
         except EOFError:
             break
 
@@ -103,17 +164,15 @@ def prefix_mode():
             break
 
 
-def infix_mode():
-    var_storage = VarStorage()
-
+def infix_mode(var_storage):
     while True:
         try:
             text = input('INFIX -> ')
 
             if text == 'POSTFIX':
-                postfix_mode()
+                postfix_mode(var_storage)
             elif text == 'PREFIX':
-                prefix_mode()
+                prefix_mode(var_storage)
             elif text == 'EXIT':
                 break
 
@@ -128,19 +187,19 @@ def infix_mode():
             break
 
 
-def postfix_mode():
+def postfix_mode(var_storage):
     while True:
         try:
             text = input('POSTFIX -> ')
 
             if text == 'INFIX':
-                infix_mode()
+                infix_mode(var_storage)
             elif text == 'PREFIX':
-                prefix_mode()
+                prefix_mode(var_storage)
             elif text == 'EXIT':
                 break
 
-            print(postfix_calculation(text))
+            print(postfix_calculation(text, var_storage))
         except EOFError:
             break
 

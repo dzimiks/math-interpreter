@@ -1,4 +1,5 @@
-OPERATIONS = ('+', '-', '/', '*', '=', '<', '>')
+OPERATIONS = ('+', '-', '/', '*', '=')
+BOOLS = ('<', '>', '<=', '>=', '!=', '==')
 
 
 class Prefixator:
@@ -12,6 +13,10 @@ class Prefixator:
             op1 = self.stack.pop()
             op2 = self.stack.pop()
             self.stack.append('(%s %s %s)' % (op1, p, op2))
+        elif p in BOOLS:
+            op1 = self.stack.pop()
+            op2 = self.stack.pop()
+            self.stack.append('%s %s %s' % (op1, p, op2))
         else:
             self.stack.append(p)
 
@@ -22,6 +27,7 @@ class Prefixator:
             self.push(e)
 
         result = self.stack.pop()
+        print(result)
         return result
 
 
@@ -36,6 +42,10 @@ class Postfixator:
             op1 = self.stack.pop()
             op2 = self.stack.pop()
             self.stack.append('(%s %s %s)' % (op2, p, op1))
+        elif p in BOOLS:
+            op1 = self.stack.pop()
+            op2 = self.stack.pop()
+            self.stack.append('%s %s %s' % (op2, p, op1))
         else:
             self.stack.append(p)
 

@@ -46,7 +46,15 @@ class Test(unittest.TestCase):
         infix_1 = infix_calculation('10+RIM(XX) +        hana =RIM(M) +10', var_storage)
         answer_1 = '1040'
 
+        infix_2 = infix_calculation('5 + y = 2 + 3 * 6', var_storage)
+        answer_2 = '25'
+
+        infix_3 = infix_calculation('2 + (y = 3) + 1', var_storage)
+        answer_3 = '3'
+
         self.assertEqual(infix_1, answer_1)
+        self.assertEqual(infix_2, answer_2)
+        self.assertEqual(infix_3, answer_3)
 
     def test_postfix(self):
         var_storage = VarStorage()
