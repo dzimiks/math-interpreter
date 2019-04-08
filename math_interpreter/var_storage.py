@@ -7,7 +7,7 @@ class VarStorage:
 
     def get(self, key):
         if key not in self.variables:
-            return None
+            return 0
 
         return self.variables[key]
 

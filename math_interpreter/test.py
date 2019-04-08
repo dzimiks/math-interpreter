@@ -86,8 +86,8 @@ class Test(unittest.TestCase):
         infix_5 = infix_calculation('4 * ( y = 5 + 8 * 6 ) / 7', var_storage)
         answer_5 = '30'
 
-        infix_6 = infix_calculation('hana', var_storage)
-        answer_6 = '1010'
+        infix_6 = infix_calculation('hana / y', var_storage)
+        answer_6 = '19'
 
         self.assertEqual(infix_1, answer_1)
         self.assertEqual(infix_2, answer_2)
